@@ -1,0 +1,8 @@
+
+input[type="file"]{
+  display: nones
+}
+
+.csv-reader-input  {
+  display: none;
+}

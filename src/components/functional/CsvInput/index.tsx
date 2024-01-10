@@ -1,5 +1,5 @@
 import CSVReader, { CSVReaderProps } from "react-csv-reader";
-
+import "./style.css";
 type CsvData<T = string> = {
   [key: string]: T;
 };
@@ -35,13 +35,19 @@ function CsvToObjectConverter(props: Props) {
   };
 
   return (
-    <div>
-      <CSVReader
-        onFileLoaded={handleCsvFile}
-        parserOptions={configs}
-        accept=".csv , text/csv"
-        label="Selecione um arquivo CSV"
-      />
+    <div className="">
+      <label
+        htmlFor="csv-input"
+        className="text-sm p-6 bg-slate-200  rounded-md cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-300 hover:shadow-md"
+      >
+        Selecione um arquivo CSV
+        <CSVReader
+          inputId="csv-input"
+          onFileLoaded={handleCsvFile}
+          parserOptions={configs}
+          accept=".csv , text/csv"
+        />
+      </label>
     </div>
   );
 }
