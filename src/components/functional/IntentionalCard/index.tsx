@@ -14,12 +14,6 @@ export default function IntentionalCard(props: Props) {
           <Card.CardTitle>{title}</Card.CardTitle>
           <Card.CardDescription> Description</Card.CardDescription>
         </Card.CardHeader>
-        <Card.CardContent>
-          <p> Content</p>
-        </Card.CardContent>
-        <Card.CardFooter>
-          <p> Footer</p>
-        </Card.CardFooter>
       </Card.Card>
     </Link>
   );
