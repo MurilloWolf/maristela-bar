@@ -38,7 +38,7 @@ function CsvToObjectConverter(props: Props) {
     <div className="">
       <label
         htmlFor="csv-input"
-        className="text-sm p-6 bg-slate-200  rounded-md cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-300 hover:shadow-md"
+        className="text-sm p-2 bg-slate-200  rounded-md cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-300 hover:shadow-md"
       >
         Selecione um arquivo CSV
         <CSVReader
