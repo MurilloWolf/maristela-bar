@@ -1,5 +1,6 @@
 import { Button } from "./button";
 import { Input } from "./input";
+import * as Table from "./table";
 import * as Sheet from "./sheet";
 import * as Card from "./card";
 import * as Collapsible from "./collapsible";
@@ -24,4 +25,5 @@ export {
   useToast,
   Popover,
   Command,
+  Table,
 };
