@@ -22,8 +22,8 @@ export default function ProductRegisterForm() {
   const canSubmit = useCallback(() => {
     const invalidFields = Object.keys(formState).filter((field) => {
       if (field === "price" || field === "quantity") {
-        const wallet = Number(formState[field]);
-        if (wallet < 0) return field;
+        const value = Number(formState[field]);
+        if (value <= 0) return field;
       }
 
       if (formState[field] === "") {
@@ -31,8 +31,8 @@ export default function ProductRegisterForm() {
       }
     });
 
-    setBtnDisabled(invalidFields.length > 0);
-  }, [formState]);
+    setBtnDisabled(invalidFields.length > 0 || comboboxValue === "");
+  }, [formState, comboboxValue]);
 
   useEffect(canSubmit, [formState, canSubmit]);
 
@@ -66,6 +66,7 @@ export default function ProductRegisterForm() {
         name="quantity"
         placeholder="50"
         value={formState.quantity}
+        minLength={1}
         required
         onChange={handleChange}
       />
@@ -74,6 +75,7 @@ export default function ProductRegisterForm() {
         name="price"
         placeholder="3,50"
         value={formState.price}
+        minLength={1}
         onChange={handleChange}
       />
       <Button aria-disabled={btnDisabled} disabled={btnDisabled} type="submit">
