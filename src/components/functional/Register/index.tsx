@@ -17,12 +17,12 @@ export default function Register(props: Props) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h4>Nenhum {title} cadastrado</h4>
+    <div className="flex flex-col justify-center items-center w-96 h-[630px]">
+      <h4 className="text-4xl text-center">Nenhum {title} cadastrado</h4>
       <Button
         type="button"
         variant="link"
-        className="rounded-[5px]"
+        className="rounded-[5px] font-light text-gray-700 my-12"
         onClick={handleRedirect}
       >
         Cadastrar {title}

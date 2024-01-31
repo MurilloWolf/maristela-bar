@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, Label } from "@/components/ui";
 import { TeamComboBox } from "..";
 import { useStore } from "@/store/infra/zustand/store";
 
@@ -71,6 +71,7 @@ export default function ClientRegisterForm() {
         value={formState.email}
         onChange={handleChange}
       />
+      <Label className="font-light">Valor do Depósito</Label>
       <Input
         type="number"
         name="wallet"
@@ -79,7 +80,12 @@ export default function ClientRegisterForm() {
         value={formState.wallet}
         onChange={handleChange}
       />
-      <Button aria-disabled={btnDisabled} disabled={btnDisabled} type="submit">
+      <Button
+        aria-disabled={btnDisabled}
+        disabled={btnDisabled}
+        type="submit"
+        className="w-full my-2"
+      >
         Cadastrar
       </Button>
     </form>

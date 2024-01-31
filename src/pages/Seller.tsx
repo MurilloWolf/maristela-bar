@@ -1,28 +1,56 @@
+import React, { useState, useEffect } from "react";
+import { useStore } from "@/store/infra/zustand/store";
+import { useDebounce } from "usehooks-ts";
 import { Button, Input, Collapsible, Card, Table } from "@/components/ui";
 import {
   MagnifyingGlass,
   MinusCircle,
   PlusCircle,
 } from "@phosphor-icons/react";
-import { useState } from "react";
-import { useStore } from "@/store/infra/zustand/store";
+
 export default function Seller() {
-  const [isOpen, setIsOpen] = useState(false);
   const products = useStore((state) => state.hub.products);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const debounce = useDebounce(inputSearch, 500);
   console.log(products);
+
+  const handleChangeInputSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInputSearch(e.target.value.toLowerCase());
+
+  const handleAddToCart = (product) => {
+    console.log("add");
+  };
+
+  const handleRemoveToCart = (product) => {
+    console.log("remove");
+  };
+
+  const searchProducts = () => {
+    let filtered = products;
+    if (inputSearch)
+      filtered = products.filter((product) =>
+        product.name.includes(inputSearch)
+      );
+
+    setFilteredProducts(filtered);
+  };
+
+  // @eslint-disable-next-line
+  useEffect(searchProducts, [debounce]);
+
   return (
     <div>
       <h1>Seller</h1>
-
       <div className="flex justify-center items-center gap-2">
-        <Input />
-        <Button
-          className="flex flex-row justify-center items-center p-2 gap-2 "
-          variant="default"
-        >
-          <MagnifyingGlass size={16} />
-          Buscar Produtos
-        </Button>
+        <Input
+          type="text"
+          onChange={handleChangeInputSearch}
+          placeholder="Coca cola"
+        />
       </div>
       <Table.Table className="w-full">
         <Table.TableCaption>Lista de produtos</Table.TableCaption>
@@ -38,17 +66,25 @@ export default function Seller() {
           </Table.TableRow>
         </Table.TableHeader>
         <Table.TableBody>
-          {products?.map((product) => {
+          {filteredProducts?.map((product) => {
             return (
               <Table.TableRow key={product.id}>
                 <Table.TableCell>{product.name}</Table.TableCell>
                 <Table.TableCell>{product.price}</Table.TableCell>
                 <Table.TableCell className="flex justify-center items-center">
-                  <Button type="button" variant="ghost">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => handleAddToCart(product)}
+                  >
                     <PlusCircle size={16} />
                   </Button>
                   <p>0</p>
-                  <Button type="button" variant="ghost">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => handleRemoveToCart(product)}
+                  >
                     <MinusCircle size={16} />
                   </Button>
                 </Table.TableCell>
@@ -61,58 +97,6 @@ export default function Seller() {
           })}
         </Table.TableBody>
       </Table.Table>
-      {/* <Card.Card className="w-38">
-        <Card.CardHeader className="flex justify-center items-center">
-          <img
-            className="w-28 h-28 rounded-md mix-blend-multiply"
-            src="https://images.tcdn.com.br/img/img_prod/858764/refrigerante_coca_cola_lata_350ml_c_12_359_1_20201021152315.jpg"
-            alt="nada"
-          />
-        </Card.CardHeader>
-        <hr />
-        <Card.CardContent className="pt-4">
-          <Card.CardTitle className="text-xl text-gray-600 text-center">
-            Coca cola 350ml
-          </Card.CardTitle>
-          <Card.CardDescription className="text-md text-center">
-            Preço: $5,00
-          </Card.CardDescription>
-        </Card.CardContent>
-        <Button className="w-full bg-red-400 text-primary-foreground shadow hover:bg-red-600/90">
-          Adicionar ao carrinho
-        </Button>
-      </Card.Card> */}
     </div>
   );
-}
-
-{
-  /* 
-  Collapsible
-<Collapsible.Collapsible
-        open={isOpen}
-        onOpenChange={setIsOpen}
-        className="w-[350px] space-y-2"
-      >
-        <div className="flex items-center justify-between space-x-4 px-4">
-          <h4 className="text-sm font-semibold">Filtros</h4>
-          <Collapsible.CollapsibleTrigger asChild>
-            <Button variant="ghost" size="sm">
-              {isOpen ? (
-                <ArrowUp size={16} className="h-4 w-4" />
-              ) : (
-                <ArrowDown size={16} className="h-4 w-4" />
-              )}
-            </Button>
-          </Collapsible.CollapsibleTrigger>
-        </div>
-        <Collapsible.CollapsibleContent className="space-y-2">
-          <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-            
-          </div>
-          <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-            @stitches/react
-          </div>
-        </Collapsible.CollapsibleContent>
-      </Collapsible.Collapsible> */
 }
